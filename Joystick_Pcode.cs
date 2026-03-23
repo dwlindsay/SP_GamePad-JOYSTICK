@@ -1,3 +1,54 @@
+
+
+//================================================================= DATAGRAM
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct GamePadDatagram
+{
+    public int RandomGamePadID;              // Just has to be unique within the wifi network
+    public float Normalized_X;               // Normalized between -1 and +1  (jostick as unit circle)
+    public float Normalized_Y;               // Normalized between -1 and +1  (jostick as unit circle)
+    private byte Button_flags;               // We store 4 booleans inside this single byte
+
+    // Equality members
+    public override bool Equals(object obj) => obj is GamePadDatagram other && Equals(other);
+
+    public bool Equals(GamePadDatagram other)
+    {
+        return RandomGamePadID == other.RandomGamePadID &&
+               Normalized_X == other.Normalized_X &&
+               Normalized_Y == other.Normalized_Y &&
+               Button_flags == other.Button_flags;
+    }
+
+    public override int GetHashCode()              // OK OH, gotta leave it in cus we DO override equals
+    {
+        unchecked
+        {
+            int hash = 17;
+            hash = hash * 23 + RandomGamePadID.GetHashCode();
+            hash = hash * 23 + Normalized_X.GetHashCode();
+            hash = hash * 23 + Normalized_Y.GetHashCode();
+            hash = hash * 23 + Button_flags.GetHashCode();
+            return hash;
+        }
+    }
+
+    public static bool operator ==(GamePadDatagram left, GamePadDatagram right) => left.Equals(right);
+    public static bool operator !=(GamePadDatagram left, GamePadDatagram right) => !left.Equals(right);
+
+
+    public void SetBool(int index, bool value)      // Helper methods to work with bools
+    {
+        if (value)
+            Button_flags |= (byte)(1 << index);             // Set bit = 1
+        else
+            Button_flags &= (byte)~(1 << index);            // Clear bit = 0
+    }
+    public bool GetBool(int index) => (Button_flags & (1 << index)) != 0;
+}
+
+
+//================================================================== DRAG TOUCH - JOYSTICK
            if (Input.touches.Any(t => t.phase == TouchPhase.Moved))              // Are there any DRAG touches happening
             {
                 var touch = Input.touches.First(t => t.phase == TouchPhase.Moved);    // Just get the first drag - ignore others
