@@ -7,9 +7,6 @@
                 if ((touch.position.x <= SPad_L_orig_Xa + SPad_size)     // Drag is only valid 
                 && (touch.position.y <= SPad_L_orig_Yt + SPad_size))     // inside the SPad area
                 {
-                  datagram.Normalized_X = NormalizeToJoystick_X(touch.position.x);      // Between -1 and +1
-                  datagram.Normalized_Y = NormalizeToJoystick_Y(touch.position.y);      // Between -1 and +1
-
                   datagram.Normalized_X = (touch.position.x - SPad_half)/SPad_half;      // Between -1 and +1
                   datagram.Normalized_Y = (touch.position.y - SPad_half)/SPad_half;      // Between -1 and +1
                 }
@@ -20,18 +17,3 @@
                 datagram.Normalized_X = 0f;             // Between -1 and +1
                 datagram.Normalized_Y = 0f;             // Between -1 and +1
             }
-
-
-//============================================================================== NORMALIZE JOYSTICK  X
-public float NormalizeToJoystick_X(float touch_point_Xa)
-{
-  // working this out on graph paper...BRB
-}
-
-//============================================================================== NORMALIZE JOYSTICK  Y
-public float NormalizeToJoystick_X(float touch_point_Yt)
-{
-  // working this out on graph paper...BRB
-}
-
-
