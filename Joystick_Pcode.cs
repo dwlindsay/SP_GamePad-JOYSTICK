@@ -48,6 +48,26 @@ public struct GamePadDatagram
 }
 
 
+
+//================================================================== TEN COLORS
+using System.Drawing;
+
+Color[] Color_Index = new Color[]
+{
+    Color.FromArgb(230, 25, 75),   // Red - Vibrant
+    Color.FromArgb(60, 180, 75),   // Green - Strong
+    Color.FromArgb(255, 225, 25),  // Yellow - Bright
+    Color.FromArgb(67, 99, 216),   // Blue - Primary
+    Color.FromArgb(245, 130, 49),  // Orange - Vivid
+    Color.FromArgb(145, 30, 180),  // Purple - Deep
+    Color.FromArgb(66, 212, 244),  // Cyan - Neon
+    Color.FromArgb(240, 50, 230),  // Magenta - Shocking
+    Color.FromArgb(191, 239, 69),  // Lime - Electric
+    Color.FromArgb(70, 153, 144)   // Teal - Deep
+};
+
+
+
 //================================================================== DRAG TOUCH - JOYSTICK
            if (Input.touches.Any(t => t.phase == TouchPhase.Moved))              // Are there any DRAG touches happening
             {
